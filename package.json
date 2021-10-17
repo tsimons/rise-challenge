@@ -1,0 +1,9 @@
+{
+  "name": "rise-js-tech-challenge",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "docker-compose up",
+    "mongod": "docker-compose run db sh"
+  }
+}

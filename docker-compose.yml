@@ -1,0 +1,47 @@
+version: "3.9"
+services:
+  server:
+    env_file: server/.env
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "3001:80"
+    environment:
+      MONGO_DB_URL: mongodb://knowledgecheck:pass@db:27017/knowledge-check?authSource=admin
+      PORT: 80
+      NODE_ENV: development
+
+    volumes:
+      - /srv/app/node_modules
+      - ./server:/srv/app
+    depends_on:
+      - db
+  client:
+    environment:
+      REACT_APP__API_URL: http://server
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - /srv/app/node_modules
+      - ./client:/srv/app
+    depends_on:
+      - server
+  db:
+    image: mongo:5.0.3
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pass
+      MONGO_INITDB_DATABASE: knowledge-check
+    command: --journal
+    volumes:
+      - "mongo_data:/data/db"
+      - "./db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js"
+      - "./db/seed.js:/docker-entrypoint-initdb.d/seed.js"
+volumes:
+  mongo_data: {}
