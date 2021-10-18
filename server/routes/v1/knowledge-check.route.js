@@ -2,8 +2,10 @@ const router = require("express").Router();
 const {
   getKnowledgeChecks,
   getKnowledgeCheck,
-  chooseAnswer,
 } = require("../../feature/knowledge-check/knowledge-check.resolver");
+const {
+  chooseAnswer,
+} = require("../../feature/knowledge-check/knowledge-check-response.resolver");
 const getError = require("../../util/get-error");
 const { fromCursor, toCursor } = require("../../util/cursor");
 
@@ -87,7 +89,7 @@ router.get("/:id", async (req, res) => {
  * @param {String} req.param.id knowledge check id
  * @param {Response} req.body
  */
-router.post("/:id/response", async (req, res) => {
+router.put("/:id/response", async (req, res) => {
   try {
     if (!req.body.userId || !req.body.answerId) {
       res.status(400);
@@ -102,7 +104,8 @@ router.post("/:id/response", async (req, res) => {
     }
 
     const response = await chooseAnswer(
-      req.param.id.req.body.answerId,
+      req.params.id,
+      req.body.answerId,
       req.body.userId
     );
 
@@ -110,7 +113,7 @@ router.post("/:id/response", async (req, res) => {
     res.send(response);
   } catch (err) {
     res.status(500);
-    res.send({ error: getError(err) });
+    res.send({ error: getError(err).toString() });
   }
 });
 

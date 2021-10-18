@@ -2,8 +2,8 @@ import React from "react";
 import YouTube from "react-youtube";
 import classNames from "classnames";
 
-import { getYoutubeIdFromURL } from "../../util/youtube-video-id";
-import { media } from "./knowledge-check.prop-types";
+import { getYoutubeIdFromURL } from "../../../util/youtube-video-id";
+import { media } from "../knowledge-check.prop-types";
 
 const KnowledgeCheckImage = ({ url }) => {
   const [isZoomed, zoom] = React.useState(false);

@@ -55,7 +55,7 @@ module.exports = {
         text: "What does this symbol represent?",
         media: {
           type: "image",
-          url: "https://static.wikia.nocookie.net/stormlightarchive/images/c/c3/B4_decal_navy_73162.1392137430.900.900.jpg/revision/latest/scale-to-width-down/250?cb=20140506011016",
+          url: "/bridge-4.jpg",
         },
       },
       answers: [

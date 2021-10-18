@@ -14,10 +14,12 @@ var seed = {
       },
       answers: [
         {
+          _id: new ObjectId(),
           text: "Tabs",
           isCorrect: false,
         },
         {
+          _id: new ObjectId(),
           text: "Spaces",
           isCorrect: true,
         },
@@ -34,14 +36,17 @@ var seed = {
       },
       answers: [
         {
+          _id: new ObjectId(),
           text: "That's a ridiculous question",
           isCorrect: false,
         },
         {
+          _id: new ObjectId(),
           text: "Black bear",
           isCorrect: true,
         },
         {
+          _id: new ObjectId(),
           text: "Grizzly bear",
           isCorrect: false,
         },
@@ -53,19 +58,22 @@ var seed = {
         text: "What does this symbol represent?",
         media: {
           type: "image",
-          url: "https://static.wikia.nocookie.net/stormlightarchive/images/c/c3/B4_decal_navy_73162.1392137430.900.900.jpg/revision/latest/scale-to-width-down/250?cb=20140506011016",
+          url: "/bridge-4.jpg",
         },
       },
       answers: [
         {
+          _id: new ObjectId(),
           text: "Egyptian Hieroglyph",
           isCorrect: false,
         },
         {
+          _id: new ObjectId(),
           text: "Bridge 4",
           isCorrect: true,
         },
         {
+          _id: new ObjectId(),
           text: "I give up",
           isCorrect: false,
         },

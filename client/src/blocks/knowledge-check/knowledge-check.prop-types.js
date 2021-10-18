@@ -11,14 +11,17 @@ export const question = {
 };
 
 export const answer = {
+  _id: PropTypes.string,
   text: PropTypes.string,
   isCorrect: PropTypes.bool,
   selected: PropTypes.bool,
 };
 
-export const KnowledgeCheck = {
+export const knowledgeCheck = {
   question,
   answers: PropTypes.arrayOf(answer),
   feedback: PropTypes.string,
+  isCorrect: PropTypes.bool,
   hasResponded: PropTypes.bool,
+  _id: PropTypes.string,
 };

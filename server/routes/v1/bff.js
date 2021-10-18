@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const {
   knowledgeCheckRoute,
+  answerKnowledgeCheck,
+  removeAnswerFromKnowledgeCheck,
 } = require("../../feature/bff/knowledge-check.bff");
 const getError = require("../../util/get-error");
 
@@ -13,7 +15,43 @@ router.get("/knowledge-checks", async (req, res) => {
   } catch (err) {
     res.status(500);
     console.error(err);
-    res.send({ error: getError(err) });
+    res.send({ error: getError(err).toString() });
+  }
+});
+
+router.put("/answer-knowledge-check", async (req, res) => {
+  try {
+    const { userId, knowledgeCheckId, answerId } = req.body;
+
+    const knowledgeCheck = await answerKnowledgeCheck(
+      knowledgeCheckId,
+      answerId,
+      userId
+    );
+
+    res.status(200);
+    res.send({ knowledgeCheck });
+  } catch (err) {
+    res.status(500);
+    console.error(err);
+    res.send({ error: getError(err).toString() });
+  }
+});
+
+router.delete("/remove-knowledge-check-response", async (req, res) => {
+  try {
+    const { userId, knowledgeCheckId } = req.body;
+
+    const knowledgeCheck = await removeAnswerFromKnowledgeCheck(
+      knowledgeCheckId,
+      userId
+    );
+
+    res.status(200);
+    res.send({ knowledgeCheck });
+  } catch (err) {
+    res.status(500);
+    res.send({ error: getError(err).toString() });
   }
 });
 

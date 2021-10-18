@@ -1,27 +1,22 @@
-## Welcome to the Rise Developer Challenge!
+## The Rise Developer Challenge
 
-### The coding challenge
+This was a really fun challenge! I decided to take it a bit further to give you a better idea of my coding style. It was a good refresher into mongo db since I've used MySQL for the last couple years. I saw the variable storage that was originally there, and decided to implement a real db with a slightly more realistic api. To make it easier for you all to bring up the service I
 
-Your goal is to implement one of Rise's interactive blocks (see [this Rise course](https://rise.articulate.com/share/IUB9zxbEaKjSQ89lw74eevjW1qC7d-54) for more details).
+### Running the project
 
-At a minimum, your implementation should:
-1. populate your interactive block's configuration from the provided REST API (see [`/server`](/server))
-1. use `react` for your UI components
-1. persist your interactive block's UI state by extending the provided REST API
+```sh
+docker-compose build
+docker-compose up
+```
 
-What you choose to implement from there is up to you. :)
+The front end will be available at http://localhost:4000, the api is at http://localhost:4001
 
-### Implementation notes:
+### Overview
 
-- your interactive block implementation should live in the [`/client`](/client) directory and have its own `package.json`, `node_modules`, etc.
-- feel free to bootstrap your solution with [create-react-app](https://github.com/facebookincubator/create-react-app) (or whatever tools you prefer)
-- the beginnings of a REST API lives in [`/server`](/server) and is reachable at http://localhost:5000
-  - the REST API currently uses variables as a makeshift in-memory database
+#### Front End
 
-### Getting started
+The front end was created with `create-react-app`. I wanted to use nextjs to run the server and client since the scope of this code challenge is small and it would make things pretty easy to manage. I decided against it because I wanted to put myself in the position of writing this for the real rise.com product which I imagine splits up the front and back end.
 
-To get the REST API up and running on your dev machine:
+To serve this, I do rely on the webpack dev server since it is just a code challenge. If it was the real deal, I would of course build the static files to be served elsewhere, or even distribute the code via an npm package for another service to import.
 
-1. `cd server`
-1. `yarn install` (or `npm install`)
-1. `yarn start` (or `npm start`)
+#### Back End

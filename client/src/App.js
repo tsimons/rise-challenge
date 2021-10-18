@@ -1,23 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+import "./app.css";
+import KnowledgeChecks from "./blocks/knowledge-check/knowledge-check.container";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <h2 className="app__h2">Knowledge Checks</h2>
+      <section className="app__knowledge-checks">
+        <KnowledgeChecks />
+      </section>
     </div>
   );
 }
