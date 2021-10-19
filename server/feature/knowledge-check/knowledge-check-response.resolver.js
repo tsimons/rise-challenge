@@ -30,20 +30,23 @@ exports.chooseAnswer = async (knowledgeCheckId, answerId, userId) => {
       `Knowledge check with id ${knowledgeCheckId} does not exist`
     );
 
-  return await Response.findOneAndUpdate(
-    {
-      user: userId,
-      knowledgeCheck: knowledgeCheckId,
-    },
-    {
-      user: userId,
-      answer: answerId,
-    },
-    {
-      lean: true,
-      upsert: true,
-    }
-  );
+  const existingResponse = await Response.findOne({
+    user: userId,
+    answer: answerId,
+    knowledgeCheck: knowledgeCheckId,
+  });
+
+  if (existingResponse) {
+    throw new Error("Response to this knowledge check already exists");
+  }
+
+  const response = new Response({
+    answer: answerId,
+    user: userId,
+    knowledgeCheck: knowledgeCheckId,
+  });
+
+  return await response.save();
 };
 
 exports.removeAnswer = async (knowledgeCheckId, userId) => {

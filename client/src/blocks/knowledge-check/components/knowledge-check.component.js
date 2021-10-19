@@ -12,7 +12,7 @@ import "../knowledge-check.css";
 
 function KnowledgeCheck({
   knowledgeCheck,
-  knowledgeCheck: { question, answers, feedback, hasResponded },
+  knowledgeCheck: { question, answers, feedback, hasResponded, isCorrect },
   chooseAnswer,
   removeAnswer,
   saving,
@@ -51,7 +51,7 @@ function KnowledgeCheck({
         <KnowledgeCheckMedia {...question.media} />
       </div>
 
-      <form onSubmit={clickChoose} ref={formEl}>
+      <form onSubmit={clickChoose} ref={formEl} disabled={hasResponded}>
         <ul className="knowledge-check__answers">
           {answers.map(({ text, selected, _id }) => {
             const checked =
@@ -59,48 +59,58 @@ function KnowledgeCheck({
             return (
               <li
                 className={classNames("knowledge-check__answer", {
-                  "knowledge-check__answer--chosen": checked,
+                  "knowledge-check__answer--chosen": hasResponded && checked,
                 })}
               >
-                <label className="knowledge_check-answer-label">
+                <label
+                  className={classNames("knowledge-check__answer-label", {
+                    "knowledge-check__answer-label--disabled": hasResponded,
+                  })}
+                >
                   <input
                     type="radio"
                     name={`${knowledgeCheck._id}-answers`}
                     onChange={(e) => setSelection(_id)}
                     checked={checked}
-                    className="knowledge_check-answer-radio"
+                    disabled={hasResponded}
+                    className="knowledge-check__answer-radio"
                   />
+                  <span className="knowledge-check__custom-radio" />
                   {text}
                 </label>
               </li>
             );
           })}
         </ul>
-
-        <button
-          className={classNames("knowledge-check__submit", {
-            "knowledge-check__submit--disabled": !clientSelection,
-          })}
-          disabled={!clientSelection}
-        >
-          Submit
-        </button>
+        {hasResponded ? (
+          <>
+            <KnowledgeCheckFeedback correct={isCorrect} feedback={feedback} />
+            <button
+              className="knowledge-check__retry"
+              onClick={async (e) => {
+                e.preventDefault();
+                await removeAnswer({ knowledgeCheckId: knowledgeCheck._id });
+                clearForm();
+              }}
+            >
+              Take again
+              <span className="knowledge-check__retry-icon">⟳</span>
+            </button>
+          </>
+        ) : (
+          <div className="knowledge-check__button-container">
+            <button
+              className={classNames("knowledge-check__submit", {
+                "knowledge-check__submit--disabled":
+                  !clientSelection || hasResponded,
+              })}
+              disabled={!clientSelection || hasResponded}
+            >
+              Submit
+            </button>
+          </div>
+        )}
       </form>
-
-      {hasResponded && feedback && (
-        <>
-          <KnowledgeCheckFeedback feedback={feedback} />
-          <button
-            className="knowlede-check__retry"
-            onClick={async () => {
-              await removeAnswer({ knowledgeCheckId: knowledgeCheck._id });
-              clearForm();
-            }}
-          >
-            Try again?
-          </button>
-        </>
-      )}
     </section>
   );
 }

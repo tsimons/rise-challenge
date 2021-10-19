@@ -23,6 +23,17 @@ router.put("/answer-knowledge-check", async (req, res) => {
   try {
     const { userId, knowledgeCheckId, answerId } = req.body;
 
+    if (!userId || !knowledgeCheckId || !answerId) {
+      res.status(400);
+      return res.send({
+        error: getError(
+          new Error(
+            "PUT /answer-knowledge-check called without required parameters: `userId` `knowledgeCheckId` `answerId`"
+          )
+        ).toString(),
+      });
+    }
+
     const knowledgeCheck = await answerKnowledgeCheck(
       knowledgeCheckId,
       answerId,

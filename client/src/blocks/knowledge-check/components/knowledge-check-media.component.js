@@ -13,17 +13,21 @@ const KnowledgeCheckImage = ({ url }) => {
     },
     [zoom, isZoomed]
   );
-  const imgClassName = React.useMemo(
-    () =>
-      classNames("knowledge-check__img", {
-        "knowledge-check__img--zoomed": isZoomed,
-      }),
-    [isZoomed]
-  );
 
   return (
-    <figure className="knowledge-check__figure">
-      <img src={url} alt="" className={imgClassName} onClick={handleClick} />
+    <figure
+      className={classNames("knowledge-check__figure", {
+        "knowledge-check__figure--zoomed": isZoomed,
+      })}
+      onClick={handleClick}
+    >
+      <img
+        src={url}
+        alt=""
+        className={classNames("knowledge-check__img", {
+          "knowledge-check__img--zoomed": isZoomed,
+        })}
+      />
     </figure>
   );
 };
@@ -39,7 +43,10 @@ const KnowledgeCheckYouTube = ({ url }) => {
 
   return (
     <div className="knowledge-check__youtube-container">
-      <YouTube videoId={videoId} />
+      <YouTube
+        videoId={videoId}
+        containerClassName="knowledge-check__youtube-container"
+      />
     </div>
   );
 };
