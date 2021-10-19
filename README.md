@@ -9,7 +9,7 @@ docker-compose build
 docker-compose up
 ```
 
-The front end will be available at http://localhost:4000, the api is at http://localhost:4001
+The front end will be available at http://localhost:3000, the api is at http://localhost:3001
 
 ### Overview
 
@@ -28,4 +28,4 @@ I would've liked to add animations, but I've spent far more time on the back end
 
 #### Back End
 
-THe backend is mongo/mongoose/express. The db gets seeded via db/mongo-init.js. I kept the business logic separate from the express route handlers to help maintain a separation of concerns and follow the single responsibility principle. I've got a typical REST api setup as well as some bff routes (Back-end For Front-end) that reduce the number of api requests to complete tasks. This reduces the number of requests needed from the front end to load/update the api. It also separates logic that involves multiple features to help keep them pure.
+The backend is mongo/mongoose/express. The db gets seeded via db/mongo-init.js. I kept the business logic separate from the express route handlers to help maintain a separation of concerns and follow the single responsibility principle. I've got a typical REST api setup as well as some bff routes (Back-end For Front-end). This reduces the number of requests needed from the front end to load/update the api. It also separates logic that involves multiple features to help keep them pure.
